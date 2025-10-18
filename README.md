@@ -54,8 +54,6 @@ Backend for the mobile app (Spring Boot) handling user-facing features like book
 
 ### Yêu cầu
 
-Dưới đây là các phần mềm bạn cần cài đặt trước khi chạy dự án:
-
 -   [JDK 17](https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html)
 -   [Maven 3.x+](https://maven.apache.org/download.cgi)
 -   [MySQL Server](https://www.mysql.com/downloads/)
@@ -80,10 +78,3 @@ Dưới đây là các phần mềm bạn cần cài đặt trước khi chạy 
     ```
 
 ---
-
-### Chạy ứng dụng
-
-Sau khi đã cấu hình xong, bạn có thể chạy dự án bằng lệnh:
-
-```bash
-./mvnw spring-boot:run
