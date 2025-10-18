@@ -20,4 +20,19 @@ Backend for Mobile App (Spring Boot)
   - [Maven](https://maven.apache.org/) 
 
 - **Tiện ích (Utilities):**
-  - [Lombok](https://projectlombok.org/) 
+  - [Lombok](https://projectlombok.org/)
+ 
+  # Cổng chạy của DỊCH VỤ BE (cho Người dùng)
+server.port=9090
+
+# Cấu hình kết nối Database MySQL
+
+spring.datasource.url=jdbc:mysql://localhost:3306/web_db
+spring.datasource.username=root
+spring.datasource.password=root
+spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+
+# Cấu hình JPA/Hibernate
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.show-sql=true
+spring.jpa.properties.hibernate.format_sql=true
