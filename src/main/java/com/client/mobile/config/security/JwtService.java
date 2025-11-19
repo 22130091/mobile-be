@@ -1,7 +1,6 @@
 package com.client.mobile.config.security;
 
 import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import jakarta.annotation.PostConstruct; // Import quan trọng
@@ -10,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.security.Key;
 import java.time.Instant;
-import java.util.Date;
+import java.util.*;
 import java.util.function.Function;
 
 //@Service
@@ -70,18 +69,6 @@ import java.util.function.Function;
 //}
 
 
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.security.Keys;
-import jakarta.annotation.PostConstruct;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
-
-import java.security.Key;
-import java.util.Date;
-import java.util.UUID;
-import java.util.function.Function;
-
 @Service
 public class JwtService {
 
@@ -95,9 +82,12 @@ public class JwtService {
         this.key = Keys.hmacShaKeyFor(SECRET_KEY.getBytes());
     }
 
-    public String generateToken(String username) {
-        String tokenId = UUID.randomUUID().toString(); // claim jti
+    public String generateToken(String username, List<String> roles) {
+        Map<String, Object> claims = new HashMap<>();
+        claims.put("roles", roles);
+        String tokenId = UUID.randomUUID().toString();
         return Jwts.builder()
+                .setClaims(claims)
                 .setSubject(username)
                 .setId(tokenId)
                 .setIssuedAt(new Date())
