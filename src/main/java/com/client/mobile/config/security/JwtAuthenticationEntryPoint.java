@@ -24,7 +24,7 @@ public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
     public void commence(HttpServletRequest request,
                          HttpServletResponse response,
                          AuthenticationException authException)
-            throws IOException, ServletException {
+            throws IOException {
 
         logger.error("Lỗi xác thực: {}", authException.getMessage());
 
@@ -38,7 +38,7 @@ public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
         body.put("message", "Yêu cầu cần xác thực. Vui lòng cung cấp token hợp lệ.");
         body.put("path", request.getServletPath());
 
-        // Ghi JSON vào response
+
         final ObjectMapper mapper = new ObjectMapper();
         mapper.writeValue(response.getOutputStream(), body);
     }

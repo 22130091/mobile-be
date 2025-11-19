@@ -4,7 +4,7 @@ import com.client.mobile.process_facade.AccountProfileFacade;
 import com.client.mobile.request.UpdateAccountRequest;
 import com.client.mobile.response.AccountResponse;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize; // <-- THÊM IMPORT NÀY
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,7 +18,6 @@ public class AccountController {
     public AccountController(AccountProfileFacade accountFacade) {
         this.accountFacade = accountFacade;
     }
-
 
 
     @GetMapping("/{id}")

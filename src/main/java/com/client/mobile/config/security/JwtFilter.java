@@ -27,9 +27,9 @@ public class JwtFilter extends OncePerRequestFilter {
     private static final Logger logger = LoggerFactory.getLogger(JwtFilter.class);
     private final JwtService jwtService;
     private final CustomUserDetailsService userDetailsService;
-    private final RedisTokenService redisTokenService ;
+    private final RedisTokenService redisTokenService;
 
-    public JwtFilter(RedisTokenService redisTokenService,JwtService jwtService, CustomUserDetailsService userDetailsService) {
+    public JwtFilter(RedisTokenService redisTokenService, JwtService jwtService, CustomUserDetailsService userDetailsService) {
         this.redisTokenService = redisTokenService;
         this.jwtService = jwtService;
         this.userDetailsService = userDetailsService;
