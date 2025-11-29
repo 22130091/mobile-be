@@ -1,0 +1,489 @@
+{
+  "info": {
+    "_postman_id": "af0bf3ee-201f-4f37-8c60-b1694768d49d",
+    "name": "Restaurant API - DTO Updated",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "38502387"
+  },
+  "item": [
+    {
+      "name": "Category Controller",
+      "item": [
+        {
+          "name": "Create Category (POST)",
+          "id": "5f65dddc-5607-49f8-b8fd-67f8a8c14702",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Appetizers\",\n  \"description\": \"Starters and light dishes\",\n  \"imageUrl\": \"/images/appetizers.jpg\",\n  \"active\": true\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/categories",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "categories"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Category (PUT)",
+          "id": "6a46c82b-b723-49c0-9ffb-34b9e7758269",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": 1, \n  \"name\": \"Main Courses - Updated\",\n  \"description\": \"Hearty main dishes\",\n  \"imageUrl\": \"/images/mains.jpg\",\n  \"active\": true \n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/categories/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "categories",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get All Categories (GET)",
+          "id": "af758eff-6296-4e8a-aff5-32dc9e0acfeb",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/categories",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "categories"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Category (DELETE)",
+          "id": "4e130b65-7e02-49a8-89ba-8e76a392afb9",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/categories/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "categories",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        }
+      ],
+      "id": "692916ec-969c-459f-9e8a-3648fd3ce7da"
+    },
+    {
+      "name": "Allergen Controller",
+      "item": [
+        {
+          "name": "Create Allergen (POST)",
+          "id": "7294ed5a-1414-47df-9467-84d69199d4e6",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Peanuts\",\n  \"description\": \"Common allergen\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/allergens",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "allergens"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Allergen (PUT)",
+          "id": "8f92b06b-c479-4a04-878d-d877105e4307",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": 1, \n  \"name\": \"Treenuts - Updated\",\n  \"description\": \"Updated description\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/allergens/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "allergens",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        }
+      ],
+      "id": "f2336654-64a3-4f91-92cf-26a414a4f194"
+    },
+    {
+      "name": "Ingredient Controller",
+      "item": [
+        {
+          "name": "Create Ingredient (POST)",
+          "id": "181ba652-a9de-4213-9e9d-0548ff6529b2",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Organic Tofu\",\n  \"description\": \"Plant-based protein source\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/ingredients",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "ingredients"
+              ]
+            }
+          },
+          "response": []
+        }
+      ],
+      "id": "20c7121f-a60f-403b-b701-fe961bf1f79a"
+    },
+    {
+      "name": "Dish Controller",
+      "item": [
+        {
+          "name": "Create Dish (POST)",
+          "id": "7a5aa410-5e99-49a9-ad53-cdc98a5516b4",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"categoryId\": 1,\n  \"name\": \"Signature Pasta Carbonara\",\n  \"description\": \"Classic Italian dish with creamy sauce\",\n  \"price\": 18.99,\n  \"imageUrl\": \"/images/pasta.jpg\",\n  \"isVegetarian\": false,\n  \"isVegan\": false,\n  \"isSpicy\": false,\n  \"preparationTime\": 20,\n  \"allergens\": [\n    {\n      \"id\": 1, \n      \"name\": \"Wheat\"\n    }\n  ],\n  \"ingredients\": [\n    {\n      \"ingredientId\": 1,\n      \"quantity\": \"200g\"\n    }\n  ]\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/dishes",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "dishes"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Dish (PUT)",
+          "id": "c82d69e0-0669-454e-9677-4462065c89ef",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": 1,\n  \"categoryId\": 1,\n  \"name\": \"Vegetarian Lasagna - Updated\",\n  \"description\": \"Hearty vegetable layers\",\n  \"price\": 16.50,\n  \"isVegetarian\": true,\n  \"allergens\": [\n    {\n      \"id\": 2, \n      \"name\": \"Lactose\"\n    }\n  ],\n  \"ingredients\": [\n    {\n      \"ingredientId\": 2,\n      \"quantity\": \"150g\"\n    }\n  ]\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/dishes/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "dishes",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Dishes by Price Range (GET)",
+          "id": "dc8e2b9f-7d9f-44e2-b552-a14637797613",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/dishes/by-price-range?minPrice=10.00&maxPrice=25.00",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "dishes",
+                "by-price-range"
+              ],
+              "query": [
+                {
+                  "key": "minPrice",
+                  "value": "10.00"
+                },
+                {
+                  "key": "maxPrice",
+                  "value": "25.00"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ],
+      "id": "56df7ba0-7a72-445d-9cac-36b7c868e4bf"
+    },
+    {
+      "name": "Order Controller",
+      "item": [
+        {
+          "name": "Create Order (POST)",
+          "id": "73b1a8fb-23f4-4f71-9d34-b63d2aa5196d",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"customerId\": 101,\n  \"reservationId\": 5,\n  \"totalAmount\": 35.75, \n  \"status\": \"PENDING\", \n  \"paymentStatus\": \"UNPAID\",\n  \"paymentMethod\": \"CASH\",\n  \"notes\": \"Extra napkins please\",\n  \"items\": [\n    {\n      \"dishId\": 1,\n      \"quantity\": 2,\n      \"unitPrice\": 15.00,\n      \"specialRequests\": \"No onions\"\n    },\n    {\n      \"dishId\": 2,\n      \"quantity\": 1,\n      \"unitPrice\": 5.75\n    }\n  ]\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/orders",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "orders"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Order Status (PATCH)",
+          "id": "3f4b599e-0b92-46d4-b68e-ba850f467520",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/orders/1/status?status=PROCESSING",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "orders",
+                "1",
+                "status"
+              ],
+              "query": [
+                {
+                  "key": "status",
+                  "value": "PROCESSING",
+                  "description": "Possible values: PENDING, PROCESSING, COMPLETED, CANCELLED"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Orders by Date Range (GET)",
+          "id": "5ceb7ac3-0281-48e1-b393-3dd6a0b6d323",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/orders/by-date-range?start=2025-01-01T00:00:00&end=2025-12-31T23:59:59",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "orders",
+                "by-date-range"
+              ],
+              "query": [
+                {
+                  "key": "start",
+                  "value": "2025-01-01T00:00:00"
+                },
+                {
+                  "key": "end",
+                  "value": "2025-12-31T23:59:59"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ],
+      "id": "acf6f62a-f021-41bf-9f9a-23f914954d61"
+    },
+    {
+      "name": "Cart Controller",
+      "item": [
+        {
+          "name": "Add Item to Cart (POST)",
+          "id": "9761fa9b-6abd-4e58-b1c2-d2a4af1db166",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"dishId\": 10,\n  \"quantity\": 1,\n  \"unitPrice\": 12.50,\n  \"specialRequests\": \"Well done\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/cart/session123/items",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "cart",
+                "session123",
+                "items"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Cart Item (PUT)",
+          "id": "48b7269d-ea4c-402b-a8eb-7d156cd712e5",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"dishId\": 10,\n  \"quantity\": 3,\n  \"unitPrice\": 12.50\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/cart/session123/items/5",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "cart",
+                "session123",
+                "items",
+                "5"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Cart by Session ID (GET)",
+          "id": "30ba0f57-5c3f-431f-b3cf-139deb9e01ad",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/cart/session123",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "cart",
+                "session123"
+              ]
+            }
+          },
+          "response": []
+        }
+      ],
+      "id": "2a4ea6d6-9026-4d81-84cd-e20359f0da79"
+    }
+  ],
+  "variable": [
+    {
+      "id": "5d804ea3-eb27-4354-afae-535da5eb118e",
+      "key": "baseUrl",
+      "value": "http://localhost:8080",
+      "type": "string"
+    }
+  ]
+}
