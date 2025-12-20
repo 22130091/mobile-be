@@ -1,6 +1,5 @@
 package com.client.mobile.config.security;
 
-
 import com.client.mobile.config.redis.RedisTokenService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,6 +13,7 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.web.cors.CorsConfigurationSource;
@@ -27,8 +27,8 @@ public class SecurityConfig {
     private final CustomUserDetailsService userDetailsService;
     private final JwtAuthenticationEntryPoint jwtAuthEntryPoint;
     private final CustomAccessDeniedHandler accessDeniedHandler;
-
     private final CorsConfigurationSource corsConfigurationSource;
+    private final OAuth2LoginSuccessHandler oAuth2LoginSuccessHandler;
 
 
     public SecurityConfig(
@@ -37,7 +37,8 @@ public class SecurityConfig {
             CustomUserDetailsService userDetailsService,
             JwtAuthenticationEntryPoint jwtAuthEntryPoint,
             CustomAccessDeniedHandler accessDeniedHandler,
-            CorsConfigurationSource corsConfigurationSource
+            CorsConfigurationSource corsConfigurationSource,
+            OAuth2LoginSuccessHandler oAuth2LoginSuccessHandler
     ) {
         this.jwtService = jwtService;
         this.redisTokenService = redisTokenService;
@@ -45,6 +46,7 @@ public class SecurityConfig {
         this.jwtAuthEntryPoint = jwtAuthEntryPoint;
         this.accessDeniedHandler = accessDeniedHandler;
         this.corsConfigurationSource = corsConfigurationSource;
+        this.oAuth2LoginSuccessHandler = oAuth2LoginSuccessHandler;
     }
 
 
@@ -63,17 +65,29 @@ public class SecurityConfig {
                         .accessDeniedHandler(accessDeniedHandler)
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/auth/**").permitAll()
+                        .requestMatchers("/", "/index.html", "/login/**", "/oauth2/**", "/error", "/login-success").permitAll()
+                        .requestMatchers("/api/v1/auth/**",
+                                "/api/v1/auth/register",
+                                "/api/v1/auth/login",
+                                "/api/v1/auth/refresh",
+                                "/api/v1/auth/forgot-password",
+                                "/api/v1/auth/reset-password",
+                                "/api/v1/auth/login-success",
+                                "/login/**", "/oauth2/**").permitAll()
                         .requestMatchers("/api/v1/accounts/**").authenticated()
                         .anyRequest().authenticated()
                 )
+                .oauth2Login(oauth2 -> oauth2
+                        .successHandler(oAuth2LoginSuccessHandler)
+                )
+
                 .authenticationProvider(authenticationProvider())
                 .addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }
-
 
     @Bean
     public AuthenticationProvider authenticationProvider() {

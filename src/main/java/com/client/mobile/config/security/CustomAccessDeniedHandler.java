@@ -26,8 +26,6 @@ public class CustomAccessDeniedHandler implements AccessDeniedHandler {
             throws IOException {
 
         logger.warn("Từ chối truy cập: {}", accessDeniedException.getMessage());
-
-        // Set status 403 - Forbidden
         response.setStatus(HttpServletResponse.SC_FORBIDDEN);
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
 

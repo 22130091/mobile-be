@@ -2,10 +2,12 @@ package com.client.mobile.domain_facade;
 
 import com.client.mobile.entity.Account;
 import com.client.mobile.repository.AccountRepository;
-import com.client.mobile.request.UpdateAccountRequest;
+import com.client.mobile.dto.request.UpdateAccountRequest;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -25,6 +27,9 @@ public class AccountDomainFacade {
         }
         account.setPassword(passwordEncoder.encode(rawPassword));
         account.setStatus("ACTIVE");
+        Date now = new Date();
+        account.setCreatedAt(now);
+        account.setUpdatedAt(now);
         return accountRepository.save(account);
     }
 

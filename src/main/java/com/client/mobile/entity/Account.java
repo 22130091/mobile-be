@@ -5,6 +5,7 @@ import lombok.*;
 
 import java.util.Date;
 import java.util.Set;
+
 @Builder
 @Entity
 @Table(name = "users")
@@ -12,7 +13,6 @@ import java.util.Set;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-// Add this annotation to exclude the collection
 @EqualsAndHashCode(exclude = {"roles"})
 public class Account {
 
@@ -44,11 +44,11 @@ public class Account {
     private String status;
 
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "created_at", insertable = false, updatable = false)
+    @Column(name = "created_at")
     private Date createdAt;
 
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "updated_at", insertable = false, updatable = false)
+    @Column(name = "updated_at")
     private Date updatedAt;
 
     @ManyToMany(fetch = FetchType.EAGER)
