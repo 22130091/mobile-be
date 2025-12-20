@@ -1,7 +1,6 @@
 package com.client.mobile.config.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
@@ -28,7 +27,6 @@ public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
 
         logger.error("Lỗi xác thực: {}", authException.getMessage());
 
-        // Set status 401 - Unauthorized
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
 

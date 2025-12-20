@@ -4,10 +4,10 @@ import com.client.mobile.domain_facade.AccountDomainFacade;
 import com.client.mobile.domain_facade.RoleDomainFacade;
 import com.client.mobile.entity.Account;
 import com.client.mobile.entity.Role;
-import com.client.mobile.request.CreateAccountRequest;
-import com.client.mobile.request.UpdateAccountRequest;
-import com.client.mobile.response.AccountResponse;
-import com.client.mobile.response.RoleResponse;
+import com.client.mobile.dto.request.CreateAccountRequest;
+import com.client.mobile.dto.request.UpdateAccountRequest;
+import com.client.mobile.dto.response.AccountResponse;
+import com.client.mobile.dto.response.RoleResponse;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

@@ -4,11 +4,12 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 import java.time.Duration;
+import java.util.Objects;
 import java.util.Set;
 
 @Service
 public class RedisTokenService {
-
+    private static final String OTP_PREFIX = "OTP_RESET:";
     private final RedisTemplate<String, Object> redisTemplate;
 
     public RedisTokenService(RedisTemplate<String, Object> redisTemplate) {
@@ -50,5 +51,19 @@ public class RedisTokenService {
             }
         }
         removeAllTokens(username);
+    }
+
+    public void saveOtp(String email, String otp) {
+        String key = OTP_PREFIX + email;
+        redisTemplate.opsForValue().set(key, otp, Duration.ofMinutes(5));
+    }
+
+    public String getOtp(String email) {
+        String key = OTP_PREFIX + email;
+        return Objects.requireNonNull(redisTemplate.opsForValue().get(key)).toString();
+    }
+
+    public void deleteOtp(String emailInput) {
+        redisTemplate.delete(emailInput);
     }
 }

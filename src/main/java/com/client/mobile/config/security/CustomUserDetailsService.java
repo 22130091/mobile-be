@@ -20,7 +20,6 @@ public class CustomUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Account account = accountRepository.findByFullName(username)
                 .orElseThrow(() -> new UsernameNotFoundException("Không tìm thấy tài khoản: " + username));
-
         return AccountUserDetails.build(account);
     }
 }

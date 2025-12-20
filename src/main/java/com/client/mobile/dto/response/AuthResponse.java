@@ -1,4 +1,4 @@
-package com.client.mobile.response;
+package com.client.mobile.dto.response;
 
 public class AuthResponse {
 

@@ -1,4 +1,4 @@
-package com.client.mobile.request;
+package com.client.mobile.dto.request;
 
 import lombok.Data;
 import java.util.Date;
