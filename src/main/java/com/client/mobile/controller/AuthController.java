@@ -59,7 +59,7 @@ public class AuthController {
         try {
             Authentication authentication = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(
-                            request.getFullName(),
+                            request.getEmail(),
                             request.getPassword()
                     )
             );
@@ -111,7 +111,7 @@ public class AuthController {
         String requestRefreshToken = request.getRefreshToken();
         String username = jwtService.extractUsername(requestRefreshToken);
         RefreshToken storedToken = refreshTokenRepository.findByToken(requestRefreshToken)
-                .orElseThrow(() -> new RuntimeException("Refresh token không tồn tại trong DB"));
+                .orElseThrow(() -> new RuntimeException("Refresh token không tồn tại"));
 
         if (storedToken.isRevoked()) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Refresh token đã bị thu hồi");
@@ -119,7 +119,7 @@ public class AuthController {
         if (storedToken.getExpiryDate().isBefore(Instant.now())) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Refresh token đã hết hạn");
         }
-        Account account = accountRepository.findByFullName(username)
+        Account account = accountRepository.findByEmail(username)
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
         List<String> roles = account.getRoles().stream()
@@ -165,4 +165,5 @@ public class AuthController {
 
         return ResponseEntity.ok("Đăng xuất tất cả thiết bị thành công");
     }
+
 }

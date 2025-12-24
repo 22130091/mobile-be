@@ -27,6 +27,32 @@ CREATE TABLE IF NOT EXISTS cart_items (
     CONSTRAINT fk_cart_items_dish FOREIGN KEY (dish_id) REFERENCES dishes(dish_id) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Chi tiết món ăn trong giỏ hàng';
 
+CREATE TABLE IF NOT EXISTS payments (
+    payment_id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    order_id INT UNSIGNED DEFAULT NULL,
+    user_id INT UNSIGNED DEFAULT NULL,
+    amount DECIMAL(10, 2) NOT NULL,
+    payment_method VARCHAR(50) NOT NULL,
+    status ENUM('pending','success','failed','refunded') NOT NULL DEFAULT 'pending',
+    transaction_id VARCHAR(255) UNIQUE,
+    vnpay_txn_ref VARCHAR(255) UNIQUE,
+    vnpay_transaction_no VARCHAR(255),
+    vnpay_response_code VARCHAR(10),
+    vnpay_secure_hash VARCHAR(512),
+    bank_code VARCHAR(50),
+    card_type VARCHAR(50),
+    payment_date DATETIME,
+    description TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    INDEX idx_order_id (order_id),
+    INDEX idx_user_id (user_id),
+    INDEX idx_status (status),
+    INDEX idx_vnpay_txn_ref (vnpay_txn_ref),
+    CONSTRAINT fk_payment_order FOREIGN KEY (order_id) REFERENCES orders(order_id) ON DELETE SET NULL ON UPDATE CASCADE,
+    CONSTRAINT fk_payment_user FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE SET NULL ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
 -- Thêm dữ liệu mẫu cho bảng carts (chỉ thêm nếu bảng trống và có dữ liệu dish)
 -- Kiểm tra trước khi insert
 SET @cart_count = (SELECT COUNT(*) FROM carts);
@@ -49,14 +75,16 @@ UNION ALL
 SELECT 'session005', '2025-11-08 15:10:00', '2025-11-08 15:40:00'
 WHERE @cart_count = 0 AND @dish_count >= 10;
 
--- Thêm dữ liệu mẫu cho cart_items nếu có carts và dishes
-SET @cart_item_count = (SELECT COUNT(*) FROM cart_items);
-
+-- Thêm dữ liệu mẫu cho cart_items với nhiều món
 INSERT INTO cart_items (cart_id, dish_id, quantity, unit_price, special_requests)
-SELECT c.id, d.dish_id, 2, d.price, 'Ít cay'
-FROM carts c
-CROSS JOIN dishes d
-WHERE c.session_id = 'session001'
-  AND @cart_item_count = 0
-  AND @dish_count >= 1
-LIMIT 1;
+VALUES
+(1, 1, 2, 35000, 'Ít cay'),
+(1, 2, 1, 65000, 'Không rau mùi'),
+(2, 3, 1, 85000, 'Bò chín kỹ'),
+(2, 4, 2, 25000, NULL),
+(3, 5, 3, 30000, 'Thêm đá'),
+(3, 7, 1, 150000, 'Ít cay vừa ăn'),
+(4, 6, 2, 45000, NULL),
+(4, 9, 1, 95000, 'Tôm tươi'),
+(5, 8, 1, 120000, 'Cay nồng'),
+(5, 10, 2, 40000, 'Chiên giòn');

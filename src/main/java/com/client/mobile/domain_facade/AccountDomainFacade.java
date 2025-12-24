@@ -44,11 +44,12 @@ public class AccountDomainFacade {
     public Account updateAccountData(Integer id, UpdateAccountRequest dto) {
         Account account = accountRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Account not found"));
-        account.setFullName(dto.getFullName());
-        account.setPhone(dto.getPhone());
-        account.setGender(dto.getGender());
-        account.setDob(dto.getDob());
-        account.setStatus(dto.getStatus());
+        if (dto.getFullName() != null) account.setFullName(dto.getFullName());
+        if (dto.getPhone() != null) account.setPhone(dto.getPhone());
+        if (dto.getGender() != null) account.setGender(dto.getGender());
+        if (dto.getDob() != null) account.setDob(dto.getDob());
+        //if (dto.getAvatar() != null) account.setAvatar(dto.getAvatar());
+        if (dto.getStatus() != null) account.setStatus(dto.getStatus());
         return accountRepository.save(account);
     }
 
