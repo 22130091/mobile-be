@@ -14,6 +14,7 @@ import com.client.mobile.repository.RefreshTokenRepository;
 import com.client.mobile.service.OtpSender;
 import com.client.mobile.service.imp.AuthService;
 import com.client.mobile.service.imp.RefreshTokenService;
+import com.client.mobile.service.imp.SmsOtpSender;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -44,8 +45,9 @@ public class AuthController {
     private final RefreshTokenRepository refreshTokenRepository;
     private final AccountRepository accountRepository;
     private final AuthService authService;
+    private final SmsOtpSender smsOtpSender;
     private final OtpSender emailOtpSender;
-
+    private final com.google.firebase.auth.FirebaseAuth firebaseAuth = com.google.firebase.auth.FirebaseAuth.getInstance();
 
 
     @PostMapping("/register")
@@ -86,6 +88,7 @@ public class AuthController {
                     .body("Tên đăng nhập hoặc mật khẩu không đúng");
         }
     }
+
     @PostMapping("/forgot-password")
     public ResponseEntity<String> forgotPass(@RequestBody ForgotPasswordRequest request) {
         String email = request.getEmail();
@@ -164,5 +167,22 @@ public class AuthController {
         refreshTokenService.revokeAllUserTokens(username);
 
         return ResponseEntity.ok("Đăng xuất tất cả thiết bị thành công");
+    }
+
+
+    @PostMapping("/verify-sms-otp")
+    public ResponseEntity<?> verifySmsOtp(@RequestBody VerifySmsRequest request) {
+        try {
+            String phoneNumber = smsOtpSender.verifyFirebaseToken(request.getIdToken());
+            Account account = accountRepository.findByPhone(phoneNumber)
+                    .orElseThrow(() -> new RuntimeException("Số điện thoại " + phoneNumber + " chưa đăng ký"));
+            String internalOtp = String.valueOf(new Random().nextInt(900000) + 100000);
+            redisTokenService.saveOtp(account.getEmail(), internalOtp);
+            return ResponseEntity.ok(account.getEmail());
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body("Lỗi: " + e.getMessage());
+        }
     }
 }
