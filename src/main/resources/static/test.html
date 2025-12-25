@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Xác thực Firebase OTP Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; line-height: 1.6; }
+        #token-display {
+            width: 100%; height: 150px; margin-top: 10px;
+            word-break: break-all; background: #f4f4f4; padding: 10px; border: 1px solid #ccc;
+        }
+        button { padding: 10px 20px; cursor: pointer; background: #007bff; color: white; border: none; border-radius: 5px; }
+    </style>
+</head>
+<body>
+<h2>Trình lấy ID Token cho Backend Test</h2>
+<div id="recaptcha-container"></div>
+
+<button onclick="sendOTP()">1. Gửi OTP (Số Test +84944982985)</button>
+
+<div id="result-area" style="display:none; margin-top: 20px;">
+    <p><strong>ID TOKEN CỦA BẠN:</strong> (Hãy copy chuỗi này dán vào Postman)</p>
+    <textarea id="token-display" readonly></textarea>
+    <p style="color: green;">✔ Đã lấy Token thành công!</p>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+<script>
+    const config = {
+        apiKey: "AIzaSyDi7Xvd5v8nXQkQPY1tYgybzevveGc-dFY",
+        authDomain: "web-mobile-6a0a8.firebaseapp.com"
+    };
+    firebase.initializeApp(config);
+    window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container', {size: 'invisible'});
+
+    function sendOTP() {
+        const phoneNumber = "+84944982985";
+
+        firebase.auth().signInWithPhoneNumber(phoneNumber, window.recaptchaVerifier)
+            .then((confirmationResult) => {
+                const code = prompt("Nhập mã xác nhận (Ví dụ: 111111):");
+                if (code) return confirmationResult.confirm(code);
+            }).then((result) => {
+            return result.user.getIdToken();
+        }).then((token) => {
+            document.getElementById('result-area').style.display = 'block';
+            document.getElementById('token-display').value = token;
+            console.log("Token:", token);
+        }).catch((error) => {
+            alert("Lỗi: " + error.message);
+        });
+    }
+</script>
+</body>
+</html>

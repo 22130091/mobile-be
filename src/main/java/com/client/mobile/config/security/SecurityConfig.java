@@ -66,18 +66,26 @@ public class SecurityConfig {
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/", "/index.html", "/error").permitAll()
-                        .requestMatchers("/api/v1/auth/**").permitAll()
-                        .requestMatchers("/login/**", "/oauth2/**", "/login-success").permitAll()
-                        .requestMatchers("/api/payment/vnpay-return").permitAll()
+
+                        .requestMatchers(
+                                "/",
+                                "/index.html",
+                                "/error",
+                                "/login-success",
+                                "/login/**",
+                                "/oauth2/**",
+                                "/api/v1/auth/**",
+                                "/api/payment/vnpay-return"
+                        ).permitAll()
+
                         .requestMatchers("/api/v1/accounts/**").authenticated()
                         .requestMatchers("/api/**").authenticated()
+
                         .anyRequest().authenticated()
                 )
                 .oauth2Login(oauth2 -> oauth2
                         .successHandler(oAuth2LoginSuccessHandler)
                 )
-
                 .authenticationProvider(authenticationProvider())
                 .addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
 

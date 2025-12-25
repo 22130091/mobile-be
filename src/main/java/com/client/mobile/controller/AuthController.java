@@ -14,6 +14,7 @@ import com.client.mobile.repository.RefreshTokenRepository;
 import com.client.mobile.service.OtpSender;
 import com.client.mobile.service.imp.AuthService;
 import com.client.mobile.service.imp.RefreshTokenService;
+import com.client.mobile.service.imp.SmsOtpSender;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -45,7 +46,7 @@ public class AuthController {
     private final AccountRepository accountRepository;
     private final AuthService authService;
     private final OtpSender emailOtpSender;
-
+    private final SmsOtpSender smsOtpSender;
 
 
     @PostMapping("/register")
@@ -86,6 +87,7 @@ public class AuthController {
                     .body("Tên đăng nhập hoặc mật khẩu không đúng");
         }
     }
+
     @PostMapping("/forgot-password")
     public ResponseEntity<String> forgotPass(@RequestBody ForgotPasswordRequest request) {
         String email = request.getEmail();
@@ -111,7 +113,7 @@ public class AuthController {
         String requestRefreshToken = request.getRefreshToken();
         String username = jwtService.extractUsername(requestRefreshToken);
         RefreshToken storedToken = refreshTokenRepository.findByToken(requestRefreshToken)
-                .orElseThrow(() -> new RuntimeException("Refresh token không tồn tại"));
+                .orElseThrow(() -> new RuntimeException("Refresh token không tồn tại trong DB"));
 
         if (storedToken.isRevoked()) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Refresh token đã bị thu hồi");
@@ -166,4 +168,28 @@ public class AuthController {
         return ResponseEntity.ok("Đăng xuất tất cả thiết bị thành công");
     }
 
+
+    @PostMapping("/verify-sms-otp")
+    public ResponseEntity<?> verifySmsOtp(@RequestBody VerifySmsRequest request) {
+        try {
+            String rawPhoneNumber = smsOtpSender.verifyFirebaseToken(request.getIdToken());
+            final String finalPhoneNumber;
+
+            if (rawPhoneNumber.startsWith("+84")) {
+                finalPhoneNumber = "0" + rawPhoneNumber.substring(3);
+            } else {
+                finalPhoneNumber = rawPhoneNumber;
+            }
+            Account account = accountRepository.findByPhone(finalPhoneNumber)
+                    .orElseThrow(() -> new RuntimeException("Số điện thoại " + finalPhoneNumber + " chưa đăng ký"));
+
+            String internalOtp = String.valueOf(new Random().nextInt(900000) + 100000);
+            redisTokenService.saveOtp(account.getEmail(), internalOtp);
+            return ResponseEntity.ok(account);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body("Lỗi: " + e.getMessage());
+        }
+    }
 }

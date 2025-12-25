@@ -50,10 +50,10 @@ public class JwtFilter extends OncePerRequestFilter {
         }
 
         String jwt = authHeader.substring(7);
-        String username = null;
+        String email = null;
 
         try {
-            username = jwtService.extractUsername(jwt);
+            email = jwtService.extractEmail(jwt);
 
         } catch (ExpiredJwtException e) {
             logger.warn("JWT token is expired: {}", e.getMessage());
@@ -65,7 +65,7 @@ public class JwtFilter extends OncePerRequestFilter {
             logger.warn("JWT token is invalid: {}", e.getMessage());
         }
 
-        if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+        if (email != null && SecurityContextHolder.getContext().getAuthentication() == null) {
 
             if (redisTokenService.isBlacklisted(jwt)) {
                 logger.warn("Token is blacklisted: {}", jwt);
@@ -75,13 +75,13 @@ public class JwtFilter extends OncePerRequestFilter {
             }
 
             try {
-                UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+                UserDetails userDetails = userDetailsService.loadUserByEmail(email);
                 var authToken = new UsernamePasswordAuthenticationToken(
                         userDetails, null, userDetails.getAuthorities());
                 SecurityContextHolder.getContext().setAuthentication(authToken);
 
             } catch (UsernameNotFoundException e) {
-                logger.warn("User not found from JWT: {}", username);
+                logger.warn("User not found from JWT: {}", email);
             }
         }
 

@@ -3,6 +3,7 @@ package com.client.mobile.repository;
 import com.client.mobile.entity.Account;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -15,4 +16,5 @@ public interface AccountRepository extends JpaRepository<Account, Integer> {
     Optional<Account> findByFullName(String fullName);
     List<Account> findAllByFullName(String fullName);
 
+    Optional<Account> findByPhone(String phoneNumber);
 }
