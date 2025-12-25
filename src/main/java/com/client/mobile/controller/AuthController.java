@@ -45,8 +45,8 @@ public class AuthController {
     private final RefreshTokenRepository refreshTokenRepository;
     private final AccountRepository accountRepository;
     private final AuthService authService;
-    private final SmsOtpSender smsOtpSender;
     private final OtpSender emailOtpSender;
+
 
 
     @PostMapping("/register")
@@ -60,7 +60,7 @@ public class AuthController {
         try {
             Authentication authentication = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(
-                            request.getFullName(),
+                            request.getEmail(),
                             request.getPassword()
                     )
             );

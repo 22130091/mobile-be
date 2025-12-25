@@ -29,13 +29,11 @@ public class AccountProfileFacade {
 
     @Transactional
     public AccountResponse createAccount(CreateAccountRequest dto) {
-        Set<Role> roles = roleDataFacade.findRolesByNames(dto.getRoles());
+        Set<Role> roles = roleDataFacade.findRolesByNames(Set.of("USER"));
         Account account = new Account();
         account.setEmail(dto.getEmail());
         account.setFullName(dto.getFullName());
         account.setPhone(dto.getPhone());
-        account.setGender(dto.getGender());
-        account.setDob(dto.getDob());
         account.setRoles(roles);
         Account savedAccount = accountDataFacade.createAccountData(account, dto.getPassword());
         return mapToResponse(savedAccount);

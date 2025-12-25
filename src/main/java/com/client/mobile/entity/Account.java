@@ -33,12 +33,15 @@ public class Account {
     @Column(name = "phone", unique = true)
     private String phone;
 
-    @Column(name = "gender", columnDefinition = "ENUM('Male','Female','Other') DEFAULT 'Other'")
+    @Column(name = "gender", columnDefinition = "ENUM('male','female','other') DEFAULT 'other'")
     private String gender;
 
     @Temporal(TemporalType.DATE)
     @Column(name = "dob")
     private Date dob;
+
+    @Column(name = "avatar")
+    private String avatar;
 
     @Column(name = "status", columnDefinition = "ENUM('active','inactive','banned') DEFAULT 'active'")
     private String status;
