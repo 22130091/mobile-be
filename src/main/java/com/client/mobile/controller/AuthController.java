@@ -173,12 +173,20 @@ public class AuthController {
     @PostMapping("/verify-sms-otp")
     public ResponseEntity<?> verifySmsOtp(@RequestBody VerifySmsRequest request) {
         try {
-            String phoneNumber = smsOtpSender.verifyFirebaseToken(request.getIdToken());
-            Account account = accountRepository.findByPhone(phoneNumber)
-                    .orElseThrow(() -> new RuntimeException("Số điện thoại " + phoneNumber + " chưa đăng ký"));
+            String rawPhoneNumber = smsOtpSender.verifyFirebaseToken(request.getIdToken());
+            final String finalPhoneNumber;
+
+            if (rawPhoneNumber.startsWith("+84")) {
+                finalPhoneNumber = "0" + rawPhoneNumber.substring(3);
+            } else {
+                finalPhoneNumber = rawPhoneNumber;
+            }
+            Account account = accountRepository.findByPhone(finalPhoneNumber)
+                    .orElseThrow(() -> new RuntimeException("Số điện thoại " + finalPhoneNumber + " chưa đăng ký"));
+
             String internalOtp = String.valueOf(new Random().nextInt(900000) + 100000);
             redisTokenService.saveOtp(account.getEmail(), internalOtp);
-            return ResponseEntity.ok(account.getEmail());
+            return ResponseEntity.ok(account);
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)

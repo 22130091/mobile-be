@@ -11,7 +11,6 @@ import java.io.InputStream;
 
 @Configuration
 public class FirebaseConfig {
-
     @PostConstruct
     public void initialize() {
         try {
