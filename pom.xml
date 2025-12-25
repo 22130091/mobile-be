@@ -45,25 +45,11 @@
 			<artifactId>spring-boot-starter-validation</artifactId>
 		</dependency>
 
-
-		<!--
-          GIỮ LẠI: Thư viện OAuth2 Client
-          Lý do: Cần thiết cho tính năng "Đăng nhập bằng Google" (.oauth2Login())
-        -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-oauth2-client</artifactId>
 		</dependency>
 
-		<!--
-          XÓA BỎ: Các thư viện gây xung đột (Resource Server và Authorization Server)
-          Chúng ta không cần chúng vì dùng Custom JWT
-        -->
-
-		<!--
-          LƯU Ý: Đã xóa phiên bản byte-buddy tường minh.
-          Hãy để spring-boot-starter-parent tự quản lý phiên bản.
-        -->
 		<dependency>
 			<groupId>net.bytebuddy</groupId>
 			<artifactId>byte-buddy</artifactId>

@@ -75,6 +75,7 @@ public class SecurityConfig {
                                 "/api/v1/auth/forgot-password",
                                 "/api/v1/auth/reset-password",
                                 "/api/v1/auth/login-success",
+                                "/api/v1/auth/send-otp",
                                 "/login/**", "/oauth2/**").permitAll()
                         .requestMatchers("/api/v1/accounts/**").authenticated()
                         .anyRequest().authenticated()

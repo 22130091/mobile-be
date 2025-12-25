@@ -47,7 +47,6 @@ public class AuthController {
     private final AuthService authService;
     private final SmsOtpSender smsOtpSender;
     private final OtpSender emailOtpSender;
-    private final com.google.firebase.auth.FirebaseAuth firebaseAuth = com.google.firebase.auth.FirebaseAuth.getInstance();
 
 
     @PostMapping("/register")
