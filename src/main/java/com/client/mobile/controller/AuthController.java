@@ -46,7 +46,7 @@ public class AuthController {
     private final AccountRepository accountRepository;
     private final AuthService authService;
     private final OtpSender emailOtpSender;
-
+    private final SmsOtpSender smsOtpSender;
 
 
     @PostMapping("/register")
@@ -121,7 +121,7 @@ public class AuthController {
         if (storedToken.getExpiryDate().isBefore(Instant.now())) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Refresh token đã hết hạn");
         }
-        Account account = accountRepository.findByFullName(username)
+        Account account = accountRepository.findByEmail(username)
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
         List<String> roles = account.getRoles().stream()
