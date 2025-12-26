@@ -1,6 +1,6 @@
-package com.client.mobile.service;
+package posmobile.service;
 
-import com.client.mobile.entity.Invoice;
+import posmobile.entity.Invoice;
 
 import java.util.List;
 import java.util.Optional;

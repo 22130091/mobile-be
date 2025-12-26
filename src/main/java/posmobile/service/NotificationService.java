@@ -1,8 +1,8 @@
 
-package com.client.mobile.service;
+package posmobile.service;
 
-import com.client.mobile.entity.Notification;
-import com.client.mobile.entity.UserNotification;
+import posmobile.entity.Notification;
+import posmobile.entity.UserNotification;
 
 import java.util.List;
 import java.util.Optional;

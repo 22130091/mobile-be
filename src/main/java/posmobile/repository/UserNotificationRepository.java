@@ -1,7 +1,7 @@
-package com.client.mobile.repository;
+package posmobile.repository;
 
-import com.client.mobile.entity.UserNotification;
 import org.springframework.data.jpa.repository.JpaRepository;
+import posmobile.entity.UserNotification;
 
 import java.util.List;
 

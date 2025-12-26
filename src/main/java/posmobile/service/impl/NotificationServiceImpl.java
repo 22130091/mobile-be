@@ -1,13 +1,13 @@
-package com.client.mobile.service.imp;
+package posmobile.service.impl;
 
-import com.client.mobile.entity.Notification;
-import com.client.mobile.entity.User;
-import com.client.mobile.entity.UserNotification;
-import com.client.mobile.repository.NotificationRepository;
-import com.client.mobile.repository.UserNotificationRepository;
-import com.client.mobile.repository.UserRepository;
-import com.client.mobile.service.NotificationService;
 import org.springframework.stereotype.Service;
+import posmobile.entity.Notification;
+import posmobile.entity.User;
+import posmobile.entity.UserNotification;
+import posmobile.repository.NotificationRepository;
+import posmobile.repository.UserNotificationRepository;
+import posmobile.repository.UserRepository;
+import posmobile.service.NotificationService;
 
 import java.time.LocalDateTime;
 import java.util.List;

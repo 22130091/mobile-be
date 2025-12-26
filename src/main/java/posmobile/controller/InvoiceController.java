@@ -1,9 +1,9 @@
-package com.client.mobile.controller;
+package posmobile.controller;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import com.client.mobile.entity.Invoice;
-import com.client.mobile.service.InvoiceService;
+import posmobile.entity.Invoice;
+import posmobile.service.InvoiceService;
 
 import java.net.URI;
 import java.util.List;

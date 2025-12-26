@@ -1,8 +1,8 @@
 
-package com.client.mobile.repository;
+package posmobile.repository;
 
-import com.client.mobile.entity.Notification;
 import org.springframework.data.jpa.repository.JpaRepository;
+import posmobile.entity.Notification;
 
 public interface NotificationRepository extends JpaRepository<Notification, Long> {
 }

@@ -1,4 +1,4 @@
-package com.client.mobile.entity;
+package posmobile.entity;
 
 import jakarta.persistence.*;
 

@@ -1,10 +1,10 @@
-package com.client.mobile.controller;
+package posmobile.controller;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import com.client.mobile.entity.Notification;
-import com.client.mobile.entity.UserNotification;
-import com.client.mobile.service.NotificationService;
+import posmobile.entity.Notification;
+import posmobile.entity.UserNotification;
+import posmobile.service.NotificationService;
 
 import java.net.URI;
 import java.util.List;

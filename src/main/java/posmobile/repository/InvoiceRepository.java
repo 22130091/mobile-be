@@ -1,7 +1,7 @@
-package com.client.mobile.repository;
+package posmobile.repository;
 
-import com.client.mobile.entity.Invoice;
 import org.springframework.data.jpa.repository.JpaRepository;
+import posmobile.entity.Invoice;
 
 public interface InvoiceRepository extends JpaRepository<Invoice, Long> {
 }

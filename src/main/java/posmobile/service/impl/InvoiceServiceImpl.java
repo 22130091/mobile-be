@@ -1,9 +1,9 @@
-package com.client.mobile.service.imp;
+package posmobile.service.impl;
 
-import com.client.mobile.entity.Invoice;
-import com.client.mobile.repository.InvoiceRepository;
-import com.client.mobile.service.InvoiceService;
 import org.springframework.stereotype.Service;
+import posmobile.entity.Invoice;
+import posmobile.repository.InvoiceRepository;
+import posmobile.service.InvoiceService;
 
 import java.util.List;
 import java.util.Optional;

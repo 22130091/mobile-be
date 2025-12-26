@@ -1,8 +1,8 @@
-package com.client.mobile.repository;
+package posmobile.repository;
 
-import com.client.mobile.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+import posmobile.entity.User;
 
 import java.util.Optional;
 
